@@ -1,42 +1,42 @@
 WITH base_data AS (
     SELECT
-        PARSE_DATE('%Y%m%d', event_date) AS date,
-        TIMESTAMP_MICROS(event_timestamp) AS timestamp,
+        PARSE_DATE('%Y%m%d', event_date) AS _date,
+        -- FIX: Use COALESCE to fallback to 0 if the timezone offset is NULL
+        TIMESTAMP_ADD(TIMESTAMP_MICROS(event_timestamp), INTERVAL COALESCE(device.time_zone_offset_seconds, 0) SECOND) AS local_timestamp,
+        geo.country AS country,
+        geo.region AS region,
         event_name,
-        event_timestamp,
-        EXTRACT(MONTH FROM PARSE_DATE('%Y%m%d', event_date)) AS month,
-        EXTRACT(YEAR FROM PARSE_DATE('%Y%m%d', event_date)) AS year,
-        EXTRACT(WEEK FROM PARSE_DATE('%Y%m%d', event_date)) AS week_no_of_year,
-        FORMAT_DATE('%A', PARSE_DATE("%Y%m%d", event_date)) AS day_of_week,
-        FORMAT("%02d",EXTRACT(HOUR FROM TIMESTAMP_MICROS(event_timestamp))) AS hour,
-        ecommerce.purchase_revenue AS revenue
+        user_pseudo_id,
+        (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') AS session_id,
+        ecommerce.purchase_revenue
     FROM `enter.tablename_123456.events_*`
     WHERE _TABLE_SUFFIX BETWEEN '20250101' AND '20250331'
 )
 
 SELECT
-    date,
-    -- timestamp,
-    month,
-    year,
-    week_no_of_year,
-    day_of_week,
+    _date AS date,
+    country,
+    region,
+    EXTRACT(MONTH FROM _date) AS month,
+    EXTRACT(YEAR FROM _date) AS year,
+    EXTRACT(WEEK FROM _date) AS week_no_of_year,
+    FORMAT_DATE('%A', _date) AS day_of_week,
+    EXTRACT(HOUR FROM local_timestamp) AS hour,
     CASE
-        WHEN hour BETWEEN '00' AND '03' THEN 'Lates'
-        WHEN hour BETWEEN '04' AND '05' THEN 'Early Risers'
-        WHEN hour BETWEEN '06' AND '08' THEN 'Breakfast'
-        WHEN hour BETWEEN '09' AND '11' THEN 'Morning'
-        WHEN hour BETWEEN '12' AND '13' THEN 'Lunchtime'
-        WHEN hour BETWEEN '14' AND '16' THEN 'Afternoon'
-        WHEN hour BETWEEN '17' AND '19' THEN 'Early Evening'
-        WHEN hour BETWEEN '20' AND '23' THEN 'Evening'
+        WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 0 AND 3 THEN 'Lates'
+        WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 4 AND 5 THEN 'Early Risers'
+        WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 6 AND 8 THEN 'Breakfast'
+        WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 9 AND 11 THEN 'Morning'
+        WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 12 AND 13 THEN 'Lunchtime'
+        WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 14 AND 16 THEN 'Afternoon'
+        WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 17 AND 19 THEN 'Early Evening'
+        ELSE 'Evening' 
     END AS day_part,
-    hour,
-    COUNTIF(event_name = 'session_start') AS sessions,
+    COUNT(DISTINCT CONCAT(user_pseudo_id, CAST(session_id AS STRING))) AS sessions,
     COUNTIF(event_name = 'add_to_cart') AS adds_to_cart,
     COUNTIF(event_name = 'view_item') AS views,
     COUNTIF(event_name = 'purchase') AS purchases,
-    SUM(IF(event_name = 'purchase', revenue, 0)) AS total_revenue
+    SUM(IF(event_name = 'purchase', purchase_revenue, 0)) AS total_revenue
 FROM base_data
-GROUP BY 1,2,3,4,5,6,7
-ORDER BY 8 DESC
+GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9
+ORDER BY date DESC, hour ASC
