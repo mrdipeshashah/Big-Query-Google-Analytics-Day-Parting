@@ -16,16 +16,6 @@ The data is segmented into the following buckets:
 
 (the segmentation can be easily tweaked that match the business model requirements) 
 
-The dashboard covers: 
-
-1. Channel performance
-2. Landing page performance
-3. Tech stack performance
-4. Data quality performance
-5. Location performance
-
-The Google Analytics audit + dashboard is E-commerce focused but it can be tweaked for any business model i.e. lead generation 
-
 # THE SET-UP
 The steps required:
 
