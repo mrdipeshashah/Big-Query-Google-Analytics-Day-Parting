@@ -3,8 +3,8 @@ This repository contains Big Query code using Google Analytics raw data that wil
 
 Standard reporting which often defaults to UTC or a single property timezone, this solution utilizes `device.time_zone_offset_seconds` to analyze performance in the **user's actual local time**.
 
-## 📊 Day Part Definitions
-The data is segmented into the following "Human Rhythm" buckets:
+## DAY PART DEFINITIONS
+The data is segmented into the following buckets:
 * **Early Risers**: 4 AM - 5 AM
 * **Breakfast**: 6 AM - 9 AM
 * **Morning**: 10 AM - 11 AM
