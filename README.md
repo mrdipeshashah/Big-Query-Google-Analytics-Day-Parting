@@ -21,7 +21,7 @@ The steps required:
 
 1. To be able to generate the data to build the dashboard it requires implementing this GTM container > https://github.com/GTMRecipeContainers/Google-Analytics-4-Enhanced-E-commerce it will require configuring the triggers + GA4 event tag that works best for the website
 3. Google Analytics is connected to Big Query
-4. The 101-GA-Audit Big Query code provided, create and save the view in Big Query
+4. The By-Day-By-Hour Big Query code provided, create and save the view in Big Query
 5. Make a copy of the data studio dashboard and connect it to the saved view
 
 # THE WATCH-OUTS
