@@ -10,7 +10,7 @@ WITH base_data AS (
         (SELECT value.int_value FROM UNNEST(event_params) WHERE key = 'ga_session_id') AS session_id,
         ecommerce.purchase_revenue
     FROM `enter.tablename_123456.events_*`
-    WHERE _TABLE_SUFFIX BETWEEN '20250101' AND '20250331'
+    WHERE _TABLE_SUFFIX BETWEEN '20250101' AND '20251231'
 )
 
 SELECT
@@ -25,18 +25,29 @@ SELECT
     CASE
         WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 0 AND 3 THEN 'Lates'
         WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 4 AND 5 THEN 'Early Risers'
-        WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 6 AND 8 THEN 'Breakfast'
-        WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 9 AND 11 THEN 'Morning'
-        WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 12 AND 13 THEN 'Lunchtime'
-        WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 14 AND 16 THEN 'Afternoon'
+        WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 6 AND 9 THEN 'Breakfast'
+        WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 10 AND 11 THEN 'Morning'
+        WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 12 AND 14 THEN 'Lunchtime'
+        WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 15 AND 16 THEN 'Afternoon'
         WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 17 AND 19 THEN 'Early Evening'
         ELSE 'Evening' 
     END AS day_part,
+      -- ADD THE SORT ORDER HERE
+  CASE 
+    WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 4 AND 5 THEN 1 -- Early Risers
+    WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 6 AND 9 THEN 2 -- Breakfast
+    WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 10 AND 11 THEN 3 -- Morning
+    WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 12 AND 14 THEN 4 -- Lunchtime
+    WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 15 AND 16 THEN 5 -- Afternoon
+    WHEN EXTRACT(HOUR FROM local_timestamp) BETWEEN 17 AND 19 THEN 6 -- Early Evening
+    WHEN EXTRACT(HOUR FROM local_timestamp) > 19 THEN 7             -- Evening
+    ELSE 8                                                          -- Lates (0-3 AM)
+  END AS day_part_sort_order,
     COUNT(DISTINCT CONCAT(user_pseudo_id, CAST(session_id AS STRING))) AS sessions,
     COUNTIF(event_name = 'add_to_cart') AS adds_to_cart,
     COUNTIF(event_name = 'view_item') AS views,
     COUNTIF(event_name = 'purchase') AS purchases,
     SUM(IF(event_name = 'purchase', purchase_revenue, 0)) AS total_revenue
 FROM base_data
-GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9
+GROUP BY 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
 ORDER BY date DESC, hour ASC
