@@ -14,7 +14,7 @@ The data is segmented into the following buckets:
 * **Evening**: 8 PM - 11 PM
 * **Lates**: 12 AM - 3 AM
 
-(the segmentation can be easily tweaked that match the business model requirements) 
+The segmentation can be easily tweaked that match the business model requirements
 
 # THE SET-UP
 The steps required:
