@@ -29,11 +29,10 @@ The key Watch-Outs:
 
 1. The most critical step is having Google Analytics connected to Big Query, the By-Day-By-Hour is using the default schema in Big Query + E-commerce events which will require setting up in Google Tag Manager to provide the insights 
 2. It's important to have the right architecture setup. The above shared GitHub GTM link helps with the architecture if a deeper aduit of events etc is needed
-3. The Big Query code - 101-GA-Audit is the one that should be connected to the dashboard
-4. The Big Query code - 101-GA-Audit-withnodatedimensions is the same as 101-GA-Audit but without the date breakdown if a deeper dive is required without dates  
-5. The Big Query code - 101-GA-Audit-DuplicateTransactions tracks duplicate transactions that happen within the same session 
-6. The Big Query code - 101-GA-Audit-KPIs provides a daily breakdown of key metrics
-7. Conversion Rate is the only calculated metric thay will need to be added - SUM(converted_sessions)/SUM(total_sessions)
+3. Conversion Rate will need to be added as a calculated metric - SUM(purchases)/SUM(sessions)
+4. Add To Cart Rate will need to be added as a calculated metric - SUM(adds_to_cart) / SUM(sessions)
+5. Cart Completion Rate will need to be added as a calculated metric - SUM(purchases) / SUM(adds_to_cart)
+6. Revenue Per Session will need to be added as a calculated metric - SUM(total_revenue) / SUM(sessions)
 
 # DATA FILTERING
 One of the outputs from the audit will be how to filter data to provide a better view of performance. The options would be to either filter in Biq Query (hard filter) or in Data Studio (soft filter). 
