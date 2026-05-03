@@ -27,7 +27,7 @@ The steps required:
 # THE WATCH-OUTS
 The key Watch-Outs: 
 
-1. The most critical step is having Google Analytics connected to Big Query, the 101-GA-Audit is using the default schema in Big Query + purchase event which will require setting up in Google Tag Manager to provide the insights 
+1. The most critical step is having Google Analytics connected to Big Query, the By-Day-By-Hour is using the default schema in Big Query + E-commerce events which will require setting up in Google Tag Manager to provide the insights 
 2. It's important to have the right architecture setup. The above shared GitHub GTM link helps with the architecture if a deeper aduit of events etc is needed
 3. The Big Query code - 101-GA-Audit is the one that should be connected to the dashboard
 4. The Big Query code - 101-GA-Audit-withnodatedimensions is the same as 101-GA-Audit but without the date breakdown if a deeper dive is required without dates  
