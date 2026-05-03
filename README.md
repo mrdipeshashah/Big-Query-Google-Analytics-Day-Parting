@@ -28,7 +28,7 @@ The steps required:
 The key Watch-Outs: 
 
 1. The most critical step is having Google Analytics connected to Big Query, the By-Day-By-Hour is using the default schema in Big Query + E-commerce events which will require setting up in Google Tag Manager to provide the insights
-2. If 
+2. If day part definitions are updated lines 26 to 33 then ordering of data part definitions will also needs to be updated lines 37 to 43 
 3. It's important to have the right architecture setup. The above shared GitHub GTM link helps with the architecture if a deeper aduit of events etc is needed
 4. Conversion Rate will need to be added as a calculated metric - SUM(purchases)/SUM(sessions)
 5. Add To Cart Rate will need to be added as a calculated metric - SUM(adds_to_cart) / SUM(sessions)
