@@ -27,10 +27,11 @@ The steps required:
 # THE WATCH-OUTS
 The key Watch-Outs: 
 
-1. The most critical step is having Google Analytics connected to Big Query, the By-Day-By-Hour is using the default schema in Big Query + E-commerce events which will require setting up in Google Tag Manager to provide the insights 
-2. It's important to have the right architecture setup. The above shared GitHub GTM link helps with the architecture if a deeper aduit of events etc is needed
-3. Conversion Rate will need to be added as a calculated metric - SUM(purchases)/SUM(sessions)
-4. Add To Cart Rate will need to be added as a calculated metric - SUM(adds_to_cart) / SUM(sessions)
-5. Cart Completion Rate will need to be added as a calculated metric - SUM(purchases) / SUM(adds_to_cart)
-6. Revenue Per Session will need to be added as a calculated metric - SUM(total_revenue) / SUM(sessions)
+1. The most critical step is having Google Analytics connected to Big Query, the By-Day-By-Hour is using the default schema in Big Query + E-commerce events which will require setting up in Google Tag Manager to provide the insights
+2. If 
+3. It's important to have the right architecture setup. The above shared GitHub GTM link helps with the architecture if a deeper aduit of events etc is needed
+4. Conversion Rate will need to be added as a calculated metric - SUM(purchases)/SUM(sessions)
+5. Add To Cart Rate will need to be added as a calculated metric - SUM(adds_to_cart) / SUM(sessions)
+6. Cart Completion Rate will need to be added as a calculated metric - SUM(purchases) / SUM(adds_to_cart)
+7. Revenue Per Session will need to be added as a calculated metric - SUM(total_revenue) / SUM(sessions)
 
