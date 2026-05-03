@@ -34,19 +34,3 @@ The key Watch-Outs:
 5. Cart Completion Rate will need to be added as a calculated metric - SUM(purchases) / SUM(adds_to_cart)
 6. Revenue Per Session will need to be added as a calculated metric - SUM(total_revenue) / SUM(sessions)
 
-# DATA FILTERING
-One of the outputs from the audit will be how to filter data to provide a better view of performance. The options would be to either filter in Biq Query (hard filter) or in Data Studio (soft filter). 
-
-Exclude In Big Query: 
-
-1. Spam & Bot Traffic: If you identify a surge of fake hits from a specific IP or Browser version
-2. Hostname Errors: Traffic from test.shop.com or localhost
-3. Ghost Transactions: Technical misfires with NULL IDs that have no business value
-4. Internal Testing: Traffic from your dev team
-
-Exclude in Data Studio: 
-
-1. Regional Focus (e.g., Africa): If you want the option to see that data occasionally, but want the main dashboard to ignore it.
-2. Product Categories: Switching between views for "Product A" vs "Product B."
-3. Date Ranges: Allowing the user to toggle between Last 14 Days and Last 30 Days
-4. Marketing Segments: Toggling between Organic and Paid traffic performance
