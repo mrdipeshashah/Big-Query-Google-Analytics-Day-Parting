@@ -1,5 +1,9 @@
 # OVERVIEW
-This repository contains Big Query code using Google Analytics raw data that will provide a summary of the Google Analytics data. The data studio dashboard (https://datastudio.google.com/reporting/78e5657c-ac77-4fd9-a2ba-e620bb083c0b) brings many of the insights to life around performance through the lens of user behavior timing. 
+This repository contains Big Query code using Google Analytics raw data that will provide a summary of the Google Analytics data breaking down day parting performance. 
+
+## DASHBOARD
+
+The data studio dashboard (https://datastudio.google.com/reporting/78e5657c-ac77-4fd9-a2ba-e620bb083c0b) brings many of the insights to life around performance through the lens of user behavior timing. 
 
 This solution utilizes `device.time_zone_offset_seconds` to analyze performance in the **user's actual local time**.
 
